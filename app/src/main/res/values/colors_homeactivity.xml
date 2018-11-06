@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="btnEntrarFacebook_color">#3b5998</color>
+    <color name="btnEntrarFacebook_color_pressed">#8b9dc3</color>
+
+    <color name="btnEntrar_color">#FFC107</color>
+    <color name="btnEntrar_color_pressed">#FFE082</color>
+
+    <color name="btnCadastrar_color">#03A9F4</color>
+    <color name="btnCadastrar_color_pressed">#81D4FA</color>
+</resources>

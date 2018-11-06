@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_feed">
+
+    <fragment
+        android:id="@+id/navigation_feed"
+        android:name="br.com.meupedidoapp.meupedidokt.fragments.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" />
+    <fragment
+        android:id="@+id/navigation_pedidos"
+        android:name="br.com.meupedidoapp.meupedidokt.fragments.PedidosFragment"
+        android:label="fragment_pedidos"
+        tools:layout="@layout/fragment_pedidos" />
+    <fragment
+        android:id="@+id/navigation_enderecos"
+        android:name="br.com.meupedidoapp.meupedidokt.fragments.EnderecosFragment"
+        android:label="fragment_enderecos"
+        tools:layout="@layout/fragment_enderecos" />
+
+</navigation>

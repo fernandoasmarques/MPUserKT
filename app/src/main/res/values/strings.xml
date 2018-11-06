@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Meu Pedido_BetaKT</string>
+    <string name="alertdialog_permissaoLocalizacaoConfig">É necessário que você ative a localização do aplicativo manualmente.
+    Vá nas guia "Permissões" e ative a "Localização" ou "Local". </string>
+    <string name="lorem">In quis sapien venenatis, fringilla quam a, elementum ligula. Proin est turpis, porttitor nec massa sit amet, molestie elementum libero. Vestibulum ut pretium felis. Integer id dapibus turpis. Aenean malesuada pretium nisl sed lacinia. Vivamus pharet
+        ra libero in eros varius viverra. Nam lacinia tortor lacus. Etiam id malesuada sem.</string>
+</resources>

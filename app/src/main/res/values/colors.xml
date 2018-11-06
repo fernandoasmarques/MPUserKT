@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#C62828</color>
+    <color name="colorPrimaryDark">#8D1C1C</color>
+    <color name="colorAccent">#FFC107</color>
+    <color name="colorFeedBackground">#FAFAFA</color>
+    <color name="colorCadClienteAcitivityBackground">#EEEEEE</color>
+    <color name="PrincipalActivity_backgroundColor">#FAFAFA</color>
+</resources>

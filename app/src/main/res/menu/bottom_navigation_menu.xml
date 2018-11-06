@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_feed"
+        android:icon="@drawable/ic_home"
+        android:title="Início" />
+
+    <item
+        android:id="@+id/navigation_pedidos"
+        android:icon="@drawable/ic_orders"
+        android:title="Meus Pedidos" />
+
+    <!-- <item
+          android:id="@+id/menu_bottom_client"
+          android:icon="@drawable/ic_person_white_24dp"
+          android:title="Perfil" />-->
+
+    <item
+        android:id="@+id/navigation_enderecos"
+        android:icon="@drawable/ic_location"
+        android:title="Endereços" />
+</menu>

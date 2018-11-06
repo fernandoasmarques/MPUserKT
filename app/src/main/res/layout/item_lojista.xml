@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ItemLojista_cardLojista"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:focusable="true"
+    card_view:cardBackgroundColor="#FFFFFF"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="5dp">
+
+    <LinearLayout
+        android:id="@+id/ItemLojista_cardLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/ItemLojista_cardLayout_relativeCabecalho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp">
+
+            <RelativeLayout
+                android:id="@+id/ItemLojista_cardLayout_relativeCabecalho_titulo"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+
+                <TextView
+                    android:id="@+id/ItemLojista_tituloLojista"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/googlesansbold"
+                    android:text="nomeEmpresa"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <View
+                    android:id="@+id/ItemLojista_lojistaGradient"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_toStartOf="@id/ItemLojista_backgroundImgLojista"
+                    android:background="@drawable/itemlojista_perfil_gradient" />
+
+                <RelativeLayout
+                    android:id="@+id/ItemLojista_backgroundImgLojista"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="#FF6600">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/ItemLojista_imagemPerfil"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="10dp"
+                        android:layout_marginStart="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/splash_background"
+                        app:civ_border_color="#FFFFFF" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/ItemLojista_subTitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ItemLojista_tituloLojista"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/googlesansregular"
+                    android:text="Categoria"
+                    android:textColor="#A3A3A3"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/divider"
+                style="@style/Divider"
+                android:layout_below="@id/ItemLojista_cardLayout_relativeCabecalho_titulo"
+                android:layout_marginBottom="5dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/divider"
+                android:paddingStart="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/ItemLojista_relativeAvaliacao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="10dp">
+
+                    <ImageView
+                        android:id="@+id/imgStar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_star" />
+
+                    <TextView
+                        android:id="@+id/ItemLojista_txtAvaliacao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/imgStar"
+                        android:fontFamily="@font/sourcesanssemibold"
+                        android:text="4.5"
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ItemLojista_relativeTempoEntrega"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/ItemLojista_relativeAvaliacao">
+
+                    <ImageView
+                        android:id="@+id/imgTimer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_timer" />
+
+                    <TextView
+                        android:id="@+id/ItemLojista_txtTempoEntrega"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/imgTimer"
+                        android:fontFamily="@font/sourcesanssemibold"
+                        android:text="15 - 25 mins"
+                        android:textAlignment="center"
+                        android:textColor="#4c4c4c"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ItemLojista_relativeTaxaEntrega"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/ItemLojista_relativeTempoEntrega">
+
+                    <ImageView
+                        android:id="@+id/imgMoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="3dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_motorcycle" />
+
+                    <TextView
+                        android:id="@+id/ItemLojista_txtTaxaEntrega"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/imgMoto"
+                        android:fontFamily="@font/sourcesanssemibold"
+                        android:text="Grátis"
+                        android:textAlignment="center"
+                        android:textColor="#4c4c4c"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/ItemLojista_txtEstaAberto"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/shape_lojista_estaaberto"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/sourcesanssemibold"
+                    android:gravity="center"
+                    android:text="Fechado"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ItemLojista_mediaArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+            <ImageView
+                android:id="@+id/ItemLojista_marketingBanner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/splash_background"
+                app:layout_constraintDimensionRatio="H,4:3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/ItemLojista_btnCardapio"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/loginclienteactivity_btnentrar"
+            android:fontFamily="@font/googlesansbold"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="Ver Cardápio"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

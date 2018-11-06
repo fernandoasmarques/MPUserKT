@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id" translatable="false">120453742017817</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb120453742017817</string>
+    <string name="API_KEY" translatable="false">AIzaSyDxt798qu7zYUlQ-bDhbPIj-a8eSzHcuy8</string>
+</resources>

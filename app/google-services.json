@@ -1,0 +1,164 @@
+{
+  "project_info": {
+    "project_number": "309753232167",
+    "firebase_url": "https://meu-pedido-abf01.firebaseio.com",
+    "project_id": "meu-pedido-abf01",
+    "storage_bucket": "meu-pedido-abf01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309753232167:android:d137568b3527c502",
+        "android_client_info": {
+          "package_name": "br.com.meupedidoapp.meupedido"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309753232167-dcnsvr80e1ekoi6841t8phnc18ftu9cv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.meupedidoapp.meupedido",
+            "certificate_hash": "858167206a4b641d11cc551397c3b0c40f8b0001"
+          }
+        },
+        {
+          "client_id": "309753232167-p4onjq6lnt8te4692ltrbbbjpfr8pjdt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBircdUAnk8gQBQf_XFMUnCDUuxCtAp2VU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309753232167-p4onjq6lnt8te4692ltrbbbjpfr8pjdt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "309753232167-u2kcttttug7bum381vsuf0044v2tijo5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.GuiDev.MPAdmin"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309753232167:android:2a426603d909a333",
+        "android_client_info": {
+          "package_name": "br.com.meupedidoapp.meupedidokt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309753232167-hdm0t5a0gnh0ef8ib07tgoq1bi3k291n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.meupedidoapp.meupedidokt",
+            "certificate_hash": "82321726d000e4297e643d22f56637a78b1b4819"
+          }
+        },
+        {
+          "client_id": "309753232167-p4onjq6lnt8te4692ltrbbbjpfr8pjdt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBircdUAnk8gQBQf_XFMUnCDUuxCtAp2VU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309753232167-p4onjq6lnt8te4692ltrbbbjpfr8pjdt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "309753232167-u2kcttttug7bum381vsuf0044v2tijo5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.GuiDev.MPAdmin"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309753232167:android:0592aa28a89579f6",
+        "android_client_info": {
+          "package_name": "br.com.meupedidoapp.mpservice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309753232167-j783pcnm0fbcv8vdtilb07pu44e262ac.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.meupedidoapp.mpservice",
+            "certificate_hash": "82321726d000e4297e643d22f56637a78b1b4819"
+          }
+        },
+        {
+          "client_id": "309753232167-p4onjq6lnt8te4692ltrbbbjpfr8pjdt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBircdUAnk8gQBQf_XFMUnCDUuxCtAp2VU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309753232167-p4onjq6lnt8te4692ltrbbbjpfr8pjdt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "309753232167-u2kcttttug7bum381vsuf0044v2tijo5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.GuiDev.MPAdmin"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
