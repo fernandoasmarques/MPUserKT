@@ -7,16 +7,14 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Looper
 import android.provider.Settings
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import br.com.meupedidoapp.meupedidokt.R
 import br.com.meupedidoapp.meupedidokt.utils.PermissionUtils
 import com.google.android.gms.common.ConnectionResult
@@ -24,22 +22,17 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CircleOptions
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.tasks.Task
+import com.google.android.gms.maps.model.MarkerOptions
+import org.jetbrains.anko.toast
 import java.lang.ClassCastException
 
 class CadEnderecoActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private var mGoogleMap: GoogleMap? = null
-
     private val mapFragment: SupportMapFragment? by lazy {
         supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
     }
-
     private val mGoogleApiClient: GoogleApiClient? by lazy {
         GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -47,29 +40,50 @@ class CadEnderecoActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiCl
                 .addApi(LocationServices.API)
                 .build()
     }
-
     private val locRequest by lazy {
-        // Lecheta Kotlin pág 464
         LocationRequest.create().apply {
+            // Em 30 segundos ele fará 5 tentativas
+            // Lecheta Kotlin pág 464
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = 10000
-            fastestInterval = 5000
+            interval = 6000
+            fastestInterval = 3000
+            //numUpdates = 5
         }
     }
-
+    private val locationPermissao by lazy {
+        PermissionUtils.validate(this, 0, android.Manifest.permission.ACCESS_FINE_LOCATION)
+    }
     private val inflater by lazy { this.layoutInflater }
 
-    private val REQUEST_CHECAR_GPS: Int = 2
+    private val _requestGPS: Int = 2
+    private val _requestErroPlayServices: Int = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cad_endereco)
         mapFragment?.getMapAsync(this)
+
+        with(supportActionBar) {
+            title = "Novo endereço"
+            this?.setDisplayHomeAsUpEnabled(true)
+            this?.setBackgroundDrawable(ResourcesCompat.getDrawable(resources,
+                    R.drawable.background_xml_actionbar, null))
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun onMapReady(googlemap: GoogleMap?) {
+        mGoogleMap = googlemap
+        mGoogleMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
+        mGoogleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-16.440798, -51.118119), 14.5f))
+        mGoogleMap?.uiSettings?.isZoomControlsEnabled = true
+        mGoogleMap?.uiSettings?.setAllGesturesEnabled(false)
     }
 
     override fun onConnected(p0: Bundle?) {
-        PermissionUtils.validate(this, 0, android.Manifest.permission.ACCESS_FINE_LOCATION)
-        verificarStatusGPS()
+        if (locationPermissao) {
+            verificarStatusGPS()
+        }
     }
 
     override fun onConnectionSuspended(p0: Int) {
@@ -77,44 +91,28 @@ class CadEnderecoActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiCl
     }
 
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
-        toast("Erro ao conectar: $connectionResult")
-    }
-
-    override fun onMapReady(googlemap: GoogleMap?) {
-        mGoogleMap = googlemap
-        mGoogleMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun getLastLocation() {
-        LocationServices.getFusedLocationProviderClient(this).apply {
-            this.lastLocation.addOnSuccessListener {
-                // permissão aqui
-                setMapLocation(it)
-            }.addOnFailureListener {
-                toast("Não foi possível buscar a localização do GPS")
+        if (connectionResult.hasResolution()) {
+            try {
+                connectionResult.startResolutionForResult(this, _requestErroPlayServices)
+            } catch (e: IntentSender.SendIntentException) {
+                e.printStackTrace()
             }
         }
     }
 
-    private fun setMapLocation(l: Location) {
-        if (mGoogleMap != null) {
-            val latLng = LatLng(l.latitude, l.longitude)
-            val update = CameraUpdateFactory.newLatLngZoom(latLng, 15f)
-            mGoogleMap?.animateCamera(update)
-
-            val circle = CircleOptions().center(latLng)
-            circle.fillColor(Color.RED)
-            circle.radius(25.0)
+    private fun setMapLocation(l: Location?) {
+        if (mGoogleMap != null && l != null) {
             mGoogleMap?.clear()
-            mGoogleMap?.addCircle(circle)
+            val latLng = LatLng(l.latitude, l.longitude)
+            mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+            mGoogleMap?.addMarker(MarkerOptions().position(latLng).title("Local atual"))
         }
     }
 
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
         LocationServices.getFusedLocationProviderClient(this).apply {
-            requestLocationUpdates(locRequest, locationCallback, Looper.myLooper()) // permissão aqui
+            requestLocationUpdates(locRequest, locationCallback, null)
         }
     }
 
@@ -124,10 +122,14 @@ class CadEnderecoActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiCl
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         mGoogleApiClient?.connect()
+    }
 
+    override fun onPause() {
+        stopLocationUpdates()
+        super.onPause()
     }
 
     override fun onStop() {
@@ -137,66 +139,54 @@ class CadEnderecoActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiCl
         super.onStop()
     }
 
-    override fun onPause() {
-        stopLocationUpdates()
-        if (mGoogleApiClient?.isConnected!!)
-            mGoogleApiClient?.disconnect()
-        super.onPause()
-    }
-
-    private fun verificarStatusGPS() { //https://developers.google.com/android/reference/com/google/android/gms/location/SettingsClient
-        val builder = LocationSettingsRequest.Builder()
+    //https://developers.google.com/android/reference/com/google/android/gms/location/SettingsClient
+    private fun verificarStatusGPS(){
+        LocationServices.getSettingsClient(this).checkLocationSettings(LocationSettingsRequest.Builder()
                 .setAlwaysShow(true)
-                .addLocationRequest(locRequest)
-        val result: Task<LocationSettingsResponse> = LocationServices.getSettingsClient(this).checkLocationSettings(builder.build())
-        result.addOnCompleteListener {
-            try {
-                val response: LocationSettingsResponse = it.getResult(ApiException::class.java)!!
-                startLocationUpdates()
-            } catch (exception: ApiException) {
-                when (exception.statusCode) {
-                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> {
-                        try {
-                            val resolvable: ResolvableApiException = exception as ResolvableApiException
-                            resolvable.startResolutionForResult(this, REQUEST_CHECAR_GPS)
-                        } catch (e: IntentSender.SendIntentException) {
-                            e.printStackTrace()
-                        } catch (e: ClassCastException) {
-                            e.printStackTrace()
+                .addLocationRequest(locRequest).build()).apply {
+            this.addOnCompleteListener {
+                try {
+                    val response: LocationSettingsResponse = it.getResult(ApiException::class.java)!!
+                    startLocationUpdates()
+                } catch (exception: ApiException) {
+                    when (exception.statusCode) {
+                        LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> {
+                            try {
+                                val resolvable: ResolvableApiException = exception as ResolvableApiException
+                                resolvable.startResolutionForResult(this@CadEnderecoActivity, _requestGPS)
+                            } catch (e: IntentSender.SendIntentException) {
+                                e.printStackTrace()
+                            } catch (e: ClassCastException) {
+                                e.printStackTrace()
+                            }
                         }
-                    }
 
-                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE ->
-                        toast("Algo errado aconteceu. Contate a equipe Meu Pedido")
+                        LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE ->
+                            toast("Algo errado aconteceu. Contate a equipe Meu Pedido")
+                    }
                 }
             }
         }
     }
 
-    private fun toast(s: String) {
-        Toast.makeText(baseContext, s, Toast.LENGTH_LONG).show()
-    }
-
-    private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult?) {
-            val location = locationResult?.lastLocation
-            // Salvar essa localizaçao no Firebase
-            println("Latitude: ${location?.latitude}")
-            println("Longitude: ${location?.longitude}")
-        }
-    }
-
+    @SuppressLint("MissingPermission")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        //val states: LocationSettingsStates? = LocationSettingsStates.fromIntent(intent)
+        val states: LocationSettingsStates? = LocationSettingsStates.fromIntent(intent)
         when (requestCode) {
-            REQUEST_CHECAR_GPS -> {
+            _requestGPS -> {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
                         startLocationUpdates()
-                        getLastLocation()
                     }
-                    Activity.RESULT_CANCELED ->
-                        toast("Não é possível capturar a sua localização sem GPS")
+
+                    Activity.RESULT_CANCELED -> // quando o usuário clica em "não, obrigado"
+                        verificarStatusGPS()
+                }
+            }
+
+            _requestErroPlayServices -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    mGoogleApiClient?.connect()
                 }
             }
         }
@@ -205,16 +195,53 @@ class CadEnderecoActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiCl
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         for (result in grantResults) {
-            if (result == PackageManager.PERMISSION_DENIED) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                    if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            when (result) {
+                PackageManager.PERMISSION_GRANTED -> {
+                    verificarStatusGPS()
+                }
+
+                PackageManager.PERMISSION_DENIED -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                            AlertDialog.Builder(this).apply {
+                                val view = inflater.inflate(R.layout.alert_dialog_permissao, null)
+                                view.findViewById<TextView>(R.id.alertdialog_textoMensagem).text = resources.getString(R.string.lorem)
+                                this.setView(view)
+                                setPositiveButton("Concordo") { _, _ ->
+                                    locationPermissao
+                                }
+                                setNegativeButton("Discordo") { _, _ ->
+                                    finish()
+                                }
+                                setCancelable(false)
+                                create()
+                                show()
+                            }
+                        } else {
+                            AlertDialog.Builder(this).apply {
+                                val view = inflater.inflate(R.layout.alert_dialog_permissao, null)
+                                view.findViewById<TextView>(R.id.alertdialog_textoTitulo).text = "Ative a localização!"
+                                view.findViewById<TextView>(R.id.alertdialog_textoMensagem).text = resources.getString(R.string.alertdialog_permissaoLocalizacaoConfig)
+                                this.setView(view)
+                                setPositiveButton("Configurações") { _, _ ->
+                                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                            Uri.fromParts("package", packageName, null))
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    startActivity(intent)
+                                }
+                                setNegativeButton("Cancelar") { _, _ -> finish() }
+                                setCancelable(false)
+                                create()
+                                show()
+                            }
+                        }
+                    } else {
                         AlertDialog.Builder(this).apply {
                             val view = inflater.inflate(R.layout.alert_dialog_permissao, null)
                             view.findViewById<TextView>(R.id.alertdialog_textoMensagem).text = resources.getString(R.string.lorem)
                             this.setView(view)
                             setPositiveButton("Concordo") { _, _ ->
-                                PermissionUtils.validate(this@CadEnderecoActivity, 0,
-                                        android.Manifest.permission.ACCESS_FINE_LOCATION)
+                                locationPermissao
                             }
                             setNegativeButton("Discordo") { _, _ ->
                                 finish()
@@ -223,28 +250,24 @@ class CadEnderecoActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiCl
                             create()
                             show()
                         }
-                    } else {
-                        AlertDialog.Builder(this).apply {
-                            val view = inflater.inflate(R.layout.alert_dialog_permissao, null)
-                            view.findViewById<TextView>(R.id.alertdialog_textoTitulo).text = "Ative a localização!"
-                            view.findViewById<TextView>(R.id.alertdialog_textoMensagem).text = resources.getString(R.string.alertdialog_permissaoLocalizacaoConfig)
-                            this.setView(view)
-                            setPositiveButton("Configurações") { _, _ ->
-                                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                        Uri.fromParts("package", packageName, null))
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                startActivity(intent)
-                            }
-                            setNegativeButton("Cancelar"){_,_-> finish()}
-                            setCancelable(false)
-                            create()
-                            show()
-                        }
                     }
-                } else {
-                    TODO("VERSION.SDK_INT < M")
                 }
             }
         }
     }
+
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult?) {
+            locationResult ?: return
+            for (location in locationResult.locations) {
+                setMapLocation(location)
+            }
+
+            val location = locationResult?.lastLocation
+            println("Latitude: ${location?.latitude}")
+            println("Longitude: ${location?.longitude}")
+        }
+    }
+
+
 }
