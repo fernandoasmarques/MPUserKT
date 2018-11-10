@@ -1,11 +1,11 @@
 package br.com.meupedidoapp.meupedidokt.model;
 
-import java.util.Calendar;
+import com.google.firebase.Timestamp;
 
 public abstract class Usuario {
     private String uid;
     private String nome;
-    protected String email;
+    private String email;
     private boolean usuarioAtivo;
     private long dataHoraCadastro;
     private String telefone1;
@@ -20,10 +20,8 @@ public abstract class Usuario {
         this.telefone1 = telefone1;
         this.telefone2 = telefone2;
 
-        usuarioAtivo = true;
-        Calendar c = Calendar.getInstance();
-        this.dataHoraCadastro = c.getTimeInMillis()/1000;
-    }
+        this.usuarioAtivo = true;
+        this.dataHoraCadastro = Timestamp.now().getSeconds(); }
 
     public String getUid() {
         return uid;
