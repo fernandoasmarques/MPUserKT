@@ -21,7 +21,8 @@ public abstract class Usuario {
         this.telefone2 = telefone2;
 
         this.usuarioAtivo = true;
-        this.dataHoraCadastro = Timestamp.now().getSeconds(); }
+        this.dataHoraCadastro = Timestamp.now().getSeconds();
+    }
 
     public String getUid() {
         return uid;

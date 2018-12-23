@@ -3,7 +3,7 @@ package br.com.meupedidoapp.meupedidokt.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Tema implements Parcelable{
+public final class Tema implements Parcelable{
     private String corFonte;
     private String corPrincipal;
     private String corStatusBar;

@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.math.BigDecimal;
 
-public class ItensPedido implements Parcelable {
+public final class ItensPedido implements Parcelable {
     private String idProduto;
     private String nome;
     private int quantidade;

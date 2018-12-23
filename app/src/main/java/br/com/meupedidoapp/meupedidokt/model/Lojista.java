@@ -1,6 +1,6 @@
 package br.com.meupedidoapp.meupedidokt.model;
 
-public class Lojista extends Usuario {
+public final class Lojista extends Usuario {
     private String nomeFantasia;
     private String telefone3;
     //private Endereco endereco[];

@@ -2,7 +2,7 @@ package br.com.meupedidoapp.meupedidokt.model;
 
 import java.util.List;
 
-public class Produto {
+public final class Produto {
     private String imagem;
     private String nome;
     private List<String> ingredientes;

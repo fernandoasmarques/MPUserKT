@@ -1,6 +1,6 @@
 package br.com.meupedidoapp.meupedidokt.model;
 
-public class Categoria {
+public final class Categoria {
     private String id;
     private String imagem;
     private String nome;
