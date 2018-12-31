@@ -6,21 +6,18 @@ import android.os.Parcelable;
 import java.math.BigDecimal;
 
 public final class ItensPedido implements Parcelable {
-    private String idProduto;
-    private String nome;
+    private Produto produto;
     private int quantidade;
-    private double preco;
 
-    public ItensPedido() {}
-
-    protected ItensPedido(Parcel in) {
-        idProduto = in.readString();
-        nome = in.readString();
-        quantidade = in.readInt();
-        preco = in.readDouble();
+    public ItensPedido() {
     }
 
-    public static final Creator<ItensPedido> CREATOR = new Creator<ItensPedido>(){
+    protected ItensPedido(Parcel in) {
+        produto = in.readParcelable(Produto.class.getClassLoader());
+        quantidade = in.readInt();
+    }
+
+    public static final Creator<ItensPedido> CREATOR = new Creator<ItensPedido>() {
         @Override
         public ItensPedido createFromParcel(Parcel in) {
             return new ItensPedido(in);
@@ -32,20 +29,15 @@ public final class ItensPedido implements Parcelable {
         }
     };
 
-    public String getIdProduto() {
-        return idProduto;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setIdProduto(String idProduto){
-        this.idProduto = idProduto;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(produto, flags);
+        dest.writeInt(quantidade);
     }
 
     public int getQuantidade() {
@@ -56,28 +48,15 @@ public final class ItensPedido implements Parcelable {
         this.quantidade = quantidade;
     }
 
-    public double getPreco() {
-        return preco;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
-    public double getPrecoTotal(){
-        return new BigDecimal(getQuantidade()).multiply(new BigDecimal(getPreco())).doubleValue();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(idProduto);
-        dest.writeString(nome);
-        dest.writeInt(quantidade);
-        dest.writeDouble(preco);
+    public BigDecimal getPrecoTotal() {
+        return new BigDecimal(getQuantidade()).multiply(getProduto().getPreco());
     }
 }

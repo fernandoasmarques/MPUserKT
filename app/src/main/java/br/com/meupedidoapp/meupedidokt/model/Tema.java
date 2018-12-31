@@ -30,6 +30,19 @@ public final class Tema implements Parcelable{
         }
     };
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(corFonte);
+        dest.writeString(corPrincipal);
+        dest.writeString(corStatusBar);
+        dest.writeString(corLight);
+    }
+
     public String getCorFonte() {
         return corFonte;
     }
@@ -44,18 +57,5 @@ public final class Tema implements Parcelable{
 
     public String getCorLight() {
         return corLight;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(corFonte);
-        dest.writeString(corPrincipal);
-        dest.writeString(corStatusBar);
-        dest.writeString(corLight);
     }
 }

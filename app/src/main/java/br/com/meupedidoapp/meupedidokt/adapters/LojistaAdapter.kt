@@ -22,6 +22,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 
 class LojistaAdapter(options: FirestoreRecyclerOptions<Lojista>) : FirestoreRecyclerAdapter<Lojista, LojistaAdapter.LojistaHolder>(options){
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LojistaHolder {
         return LojistaHolder(LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_lojista, parent, false))
@@ -65,12 +66,12 @@ class LojistaAdapter(options: FirestoreRecyclerOptions<Lojista>) : FirestoreRecy
 
         holder.btnCardapio.setOnClickListener {
             val intent = Intent(it.context, LojistaActivity::class.java)
-            val params = Bundle()
-            params.putParcelable("tema", model.tema)
-            params.putString("nomeFantasia", model.nomeFantasia)
-            params.putString("uidLojista", model.uid)
-            intent.putExtras(params)
-
+            Bundle().apply {
+                this.putParcelable("tema", model.tema)
+                this.putString("nomeFantasia", model.nomeFantasia)
+                this.putString("uidLojista", model.uid)
+                intent.putExtras(this)
+            }
             val opts = ActivityOptionsCompat.makeCustomAnimation(it.context, R.anim.slide_in_left, R.anim.slide_out_left)
             ActivityCompat.startActivity(it.context, intent, opts.toBundle())
         }

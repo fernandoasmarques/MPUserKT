@@ -253,24 +253,24 @@ class CadClienteActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
                         if (task.isSuccessful) {
                             loadingDialogMP.fecharDialog()
                             user = mAuth.currentUser!!
-                            cliente = Cliente(user!!.uid, nome, email, sobrenome, genero, dataNascimentoTimeStamp!!, telefoneCelular, telefoneFixo)
+                            cliente = Cliente(user.uid, nome, email, sobrenome, genero, dataNascimentoTimeStamp!!, telefoneCelular, telefoneFixo)
                             saveOnFirestore(cliente)
                             //sendEmailVerification();
                             updateUI(user)
                         } else {
-                            if (loadingDialogMP!!.estaAberto()) loadingDialogMP!!.fecharDialog()
+                            if (loadingDialogMP.estaAberto()) loadingDialogMP.fecharDialog()
                             try {
                                 throw task.exception!!
                             } catch (e: FirebaseNetworkException) {
                                 with(alert) {
-                                    this!!.setTitle("Oops! :(")
+                                    this.setTitle("Oops! :(")
                                     setMessage("Não há conexão com a internet.")
                                     setNeutralButton(android.R.string.ok, null)
                                     show()
                                 }
                             } catch (e: FirebaseAuthUserCollisionException) {
                                 with(alert) {
-                                    this!!.setTitle("Oops! :(")
+                                    this.setTitle("Oops! :(")
                                     setMessage("Este endereço de e-mail ($email) já existe em uma conta cadastrada. Tente outro e-mail.")
                                     setNeutralButton(android.R.string.ok, null)
                                     show()
@@ -421,9 +421,9 @@ class CadClienteActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
 
     private fun sendEmailVerification() {
         user = mAuth.currentUser!!
-        user!!.sendEmailVerification().addOnCompleteListener(this) { task ->
+        user.sendEmailVerification().addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                mostrarToast("Verification email sent to ${user!!.email}")
+                mostrarToast("Verification email sent to ${user.email}")
             } else {
                 mostrarToast("Failed to send verification email.")
             }

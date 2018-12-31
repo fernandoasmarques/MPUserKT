@@ -6,9 +6,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import java.util.ArrayList
 
-object PermissionUtils {
+object PermissionUtils{
     @Suppress("UNUSED_PARAMETER")
-// Solicita as permissões
+    //Solicita as permissões
     fun validate(activity: Activity, requestCode: Int, vararg permissions: String): Boolean {
         val list = ArrayList<String>()
         for (permission in permissions) {

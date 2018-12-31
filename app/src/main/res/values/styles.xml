@@ -50,4 +50,9 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#EEEEEE</item>
     </style>
+
+    <style name="spinnerEndereco" parent="Theme.AppCompat.Light">
+        <item name="android:fontFamily">@font/bebas</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

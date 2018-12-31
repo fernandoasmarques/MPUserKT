@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="nomes_locais">
+        <item>Casa</item>
+        <item>Apartamento</item>
+        <item>Trabalho</item>
+        <item>Faculdade</item>
+        <item>Personalizado</item>
+    </string-array>
+</resources>

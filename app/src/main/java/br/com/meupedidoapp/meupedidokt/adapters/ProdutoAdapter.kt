@@ -1,5 +1,6 @@
 package br.com.meupedidoapp.meupedidokt.adapters
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.text.TextUtils
@@ -16,6 +17,7 @@ import br.com.meupedidoapp.meupedidokt.model.Tema
 import com.bumptech.glide.Glide
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import java.math.BigDecimal
 import java.util.ArrayList
 
 class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, private val tema: Tema?) : FirestoreRecyclerAdapter<Produto, ProdutoAdapter.ProdutoHolder>(options) {
@@ -25,6 +27,7 @@ class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, private val tem
                 .inflate(R.layout.item_produto, parent, false))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ProdutoHolder, position: Int, model: Produto) {
         Glide.with(holder.imgImagemProduto.context)
                 .load(model.imagem)
@@ -46,28 +49,34 @@ class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, private val tem
 
         holder.txtProdutoIngredientes.text = ingredientes
 
-        val price = (model.preco).toInt()
+        val valorProduto = model.preco.toInt()
+        val subpreco = model.preco.remainder(BigDecimal.ONE).movePointRight(2).abs().toInt()
+
         if (model.tipo != "unidade")
-            holder.txtProdutoPreco.text = "A partir de " + price.toString()
-        else
-            holder.txtProdutoPreco.text = price.toString()
+            holder.txtProdutoPreco.text = "A partir de " + valorProduto.toString()
+        else {
+            holder.txtProdutoPreco.text = valorProduto.toString()
+            if (model.preco.toDouble() - valorProduto != 0.0)
+                holder.txtProdutoSubPreco.text = "." + subpreco.toString()
+            else
+                holder.txtProdutoSubPreco.text = ".00"
+        }
+
 
         holder.relativeProdutoFooter.setBackgroundColor(Color.parseColor(tema?.corLight))
         holder.relativeBackgroundProdutoPreco.background.setColorFilter(Color.parseColor(tema?.corPrincipal), PorterDuff.Mode.SRC_IN)
 
-        val snapshot = snapshots.getSnapshot(holder.adapterPosition)
+        /*val snapshot = snapshots.getSnapshot(holder.adapterPosition)
         val idProduto = snapshot.id
-        val preco = snapshot.getDouble("preco")!!
-        val nome = snapshot.getString("nome")
-
+        val preco = BigDecimal(snapshot.getDouble("preco").toString())
+        val nome = snapshot.getString("nome")*/
 
         holder.btnCounterQtdeProdutoMais.setOnClickListener {
-            holder.adicionarProduto(idProduto, preco, nome!!)
+            holder.adicionarProduto(model)
 
             if (!LojistaActivity.itensSelecionados.contains(holder.itensPedido))
                 LojistaActivity.itensSelecionados.add(holder.itensPedido)
 
-            println("O tamanho da lista é: ${LojistaActivity.itensSelecionados.size}")
             LojistaActivity.itensPedidoListAdapter.notifyDataSetChanged()
         }
 
@@ -77,7 +86,6 @@ class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, private val tem
             if (holder.getQtdeProduto() == 0)
                 LojistaActivity.itensSelecionados.remove(holder.itensPedido)
 
-            println("O tamanho da lista é: ${LojistaActivity.itensSelecionados.size}")
             LojistaActivity.itensPedidoListAdapter.notifyDataSetChanged()
         }
     }
@@ -98,12 +106,10 @@ class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, private val tem
         private var qtdeProduto: Int = 0
         val itensPedido = ItensPedido()
 
-        fun adicionarProduto(idProduto: String, preco: Double, nome: String) {
+        fun adicionarProduto(produto: Produto) {
             setQtdeProduto(getQtdeProduto() + 1)
-            itensPedido.idProduto = idProduto
+            itensPedido.produto = produto
             itensPedido.quantidade = getQtdeProduto()
-            itensPedido.preco = preco
-            itensPedido.nome = nome
             mostrarQtdeProduto(getQtdeProduto())
         }
 

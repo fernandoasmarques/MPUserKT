@@ -6,4 +6,6 @@
     <color name="colorFeedBackground">#FAFAFA</color>
     <color name="colorCadClienteAcitivityBackground">#EEEEEE</color>
     <color name="PrincipalActivity_backgroundColor">#FAFAFA</color>
+
+    <color name="fifty_percent_transparency_grey_400">#80bdbdbd</color>
 </resources>
