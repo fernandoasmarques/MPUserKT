@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
@@ -31,25 +32,37 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_lojista.*
 import kotlinx.android.synthetic.main.lojistaactivity_bottomsheet_itenspedidos.*
+import java.math.BigDecimal
+import java.math.BigInteger
 import java.util.*
+import java.util.function.BiFunction
 
 class LojistaActivity : AppCompatActivity() {
-
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-
     // Este é um Singleton reconhecido em todo o sistema
     // Este array é limpo quando a activity se encerra
     // Pelo fato de ser Singleton pode-se adiconar itens de vários lojistas
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
+        lateinit var bottomsheet_txtSubtotal : TextView
         val itensSelecionados by lazy { ObservableArrayList<ItensPedido>() }
         @SuppressLint("StaticFieldLeak")
         lateinit var itensPedidoListAdapter: ItensPedidoListAdapter
+
+        fun somarPrecosItensSelecionados() : BigDecimal{
+            var soma = BigDecimal("0")
+            for(itenspedido in itensSelecionados){
+                soma = soma.add(itenspedido.precoTotal)
+            }
+            return soma
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lojista)
+        bottomsheet_txtSubtotal = findViewById<TextView>(R.id.LojistaActivity_bottomsheet_txtItemProdutoSubTotal)
 
         val args = intent.extras
         val tema: Tema? by lazy { args?.getParcelable<Tema>("tema") }
@@ -86,7 +99,7 @@ class LojistaActivity : AppCompatActivity() {
                 .setQuery(ordemCategoria, Categoria::class.java)
                 .build()
 
-        val adapterCategorias = CategoriaAdapter(options, uidLojista, LojistaActivity_pagerProduto)
+        val adapterCategorias = CategoriaAdapter(options, uidLojista!!, LojistaActivity_pagerProduto)
         LojistaActivity_recyclerView_categorias.adapter = adapterCategorias
         adapterCategorias.startListening()
 
@@ -101,7 +114,7 @@ class LojistaActivity : AppCompatActivity() {
                 }
             }
 
-            ProdutoPagerAdapter(fm = supportFragmentManager, qtdeCategorias = idCategorias.size, uidLojista = uidLojista,
+            ProdutoPagerAdapter(fm = supportFragmentManager, qtdeCategorias = idCategorias.size, uidLojista = uidLojista!!,
                     idCategorias = idCategorias, nomeCategorias = categoriasNome, tema = tema!!).apply {
                 pagerProduto.adapter = this
                 pagerProduto.offscreenPageLimit = idCategorias.size
@@ -109,7 +122,7 @@ class LojistaActivity : AppCompatActivity() {
         }
 
 
-        ItensPedidoListAdapter(this, itensSelecionados).apply {
+        ItensPedidoListAdapter(this, itensSelecionados, tema!!).apply {
             LojistaActivity_bottomsheet_listItensProdutos.adapter = this
             itensPedidoListAdapter = this
         }
@@ -119,7 +132,7 @@ class LojistaActivity : AppCompatActivity() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(p0: View, p1: Float) {
-                LojistaActivity_bottomsheet_btnVisualizarProdutos.rotation = p1 * 180f
+                LojistaActivity_bottomsheet_imgseta.rotation = p1 * 180f
                 //LojistaActivity_bottomsheet_btnVisualizarProdutos.animate().rotationXBy(180f).start()
             }
 
@@ -135,7 +148,7 @@ class LojistaActivity : AppCompatActivity() {
             if (itensSelecionados.isEmpty()) {
                 Toast.makeText(this, "Seu carrinho está vazio", Toast.LENGTH_SHORT).show()
             } else {
-                val intent = Intent(this, FinalizarPedidoActivity::class.java)
+                val intent = Intent(this, ResumoPedidoActivity::class.java)
                 Bundle().apply {
                     this.putParcelableArrayList("itensSelecionados", itensSelecionados)
                     this.putString("uidLojista", uidLojista)
@@ -148,7 +161,7 @@ class LojistaActivity : AppCompatActivity() {
             }
         }
 
-        LojistaActivity_bottomsheet_btnVisualizarProdutos.setOnClickListener {
+        LojistaActivity_bottomsheet_txtItemProdutoSubTotal.setOnClickListener {
             if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             } else {

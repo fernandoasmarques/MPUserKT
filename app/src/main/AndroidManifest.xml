@@ -76,7 +76,7 @@
             android:name=".activities.LojistaActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeActivity_theme" />
-        <activity android:name=".activities.FinalizarPedidoActivity"
+        <activity android:name=".activities.ResumoPedidoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeActivity_theme"/>
         <activity android:name=".activities.CadEnderecoActivity" />

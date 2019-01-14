@@ -1,6 +1,13 @@
 package br.com.meupedidoapp.meupedidokt.utils;
 
+import android.content.Context;
+import android.widget.TextView;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import org.w3c.dom.Text;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import androidx.databinding.ObservableList;
 import br.com.meupedidoapp.meupedidokt.model.ItensPedido;
@@ -21,6 +28,7 @@ public class ItensPedidoListener extends ObservableList.OnListChangedCallback {
 
     @Override
     public void onItemRangeChanged(ObservableList sender, int positionStart, int itemCount) {
+
     }
 
     @Override
