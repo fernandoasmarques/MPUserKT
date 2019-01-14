@@ -3,7 +3,8 @@ package br.com.meupedidoapp.meupedidokt.adapters
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.text.TextUtils
+import android.text.*
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import java.math.BigDecimal
 import java.util.ArrayList
+import android.text.Spanned
+import android.text.SpannableStringBuilder
+
 
 class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, private val tema: Tema?) : FirestoreRecyclerAdapter<Produto, ProdutoAdapter.ProdutoHolder>(options) {
 
@@ -73,20 +77,30 @@ class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, private val tem
 
         holder.btnCounterQtdeProdutoMais.setOnClickListener {
             holder.adicionarProduto(model)
-
             if (!LojistaActivity.itensSelecionados.contains(holder.itensPedido))
                 LojistaActivity.itensSelecionados.add(holder.itensPedido)
 
             LojistaActivity.itensPedidoListAdapter.notifyDataSetChanged()
+            atualizarPrecoBottomSheetSubTotal()
         }
 
         holder.btnCounterQtdeProdutoMenos.setOnClickListener {
             holder.retirarItem()
-
             if (holder.getQtdeProduto() == 0)
                 LojistaActivity.itensSelecionados.remove(holder.itensPedido)
-
             LojistaActivity.itensPedidoListAdapter.notifyDataSetChanged()
+            LojistaActivity.bottomsheet_txtSubtotal.text = LojistaActivity.somarPrecosItensSelecionados().setScale(2).toString()
+            atualizarPrecoBottomSheetSubTotal()
+        }
+    }
+
+    private fun atualizarPrecoBottomSheetSubTotal(){
+        val text = LojistaActivity.somarPrecosItensSelecionados().setScale(2).toString()
+        SpannableStringBuilder(text).apply {
+            val cor = ForegroundColorSpan(Color.parseColor("#FFFFFF"))
+            this.setSpan(cor, 0, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            this.append("R$")
+            LojistaActivity.bottomsheet_txtSubtotal.text = this
         }
     }
 
