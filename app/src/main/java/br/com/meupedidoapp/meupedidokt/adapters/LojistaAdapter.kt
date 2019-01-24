@@ -20,6 +20,7 @@ import br.com.meupedidoapp.meupedidokt.model.Lojista
 import com.bumptech.glide.Glide
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.material.card.MaterialCardView
 
 class LojistaAdapter(options: FirestoreRecyclerOptions<Lojista>) : FirestoreRecyclerAdapter<Lojista, LojistaAdapter.LojistaHolder>(options){
 
@@ -50,10 +51,11 @@ class LojistaAdapter(options: FirestoreRecyclerOptions<Lojista>) : FirestoreRecy
                     PorterDuff.Mode.SRC_IN)
         }
 
-        val cores = intArrayOf(android.R.color.transparent, Color.parseColor(model.tema.corPrincipal))
-        val gd = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, cores)
+        GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                intArrayOf(android.R.color.transparent, Color.parseColor(model.tema.corPrincipal))).apply {
+            holder.lojistaGradient.background = this
+        }
 
-        holder.lojistaGradient.background = gd
         holder.backgroundImgPerfilLojista.setBackgroundColor(Color.parseColor(model.tema.corPrincipal))
         //holder.cardLojista.strokeColor = Color.parseColor(model.tema.corPrincipal)
 
@@ -64,8 +66,9 @@ class LojistaAdapter(options: FirestoreRecyclerOptions<Lojista>) : FirestoreRecy
             holder.txtAvaliacao.text = "Não Avaliado"
         }
 
-        holder.btnCardapio.setOnClickListener {
-            val intent = Intent(it.context, LojistaActivity::class.java)
+        holder.cardLojista.setOnClickListener {
+            irParaLoja(it, model)
+            /*val intent = Intent(it.context, LojistaActivity::class.java)
             Bundle().apply {
                 this.putParcelable("tema", model.tema)
                 this.putString("nomeFantasia", model.nomeFantasia)
@@ -73,8 +76,24 @@ class LojistaAdapter(options: FirestoreRecyclerOptions<Lojista>) : FirestoreRecy
                 intent.putExtras(this)
             }
             val opts = ActivityOptionsCompat.makeCustomAnimation(it.context, R.anim.slide_in_left, R.anim.slide_out_left)
-            ActivityCompat.startActivity(it.context, intent, opts.toBundle())
+            ActivityCompat.startActivity(it.context, intent, opts.toBundle())*/
         }
+
+        holder.btnCardapio.setOnClickListener{
+            irParaLoja(it, model)
+        }
+    }
+
+    private fun irParaLoja(v: View, model: Lojista){
+        val intent = Intent(v.context, LojistaActivity::class.java)
+        Bundle().apply {
+            this.putParcelable("tema", model.tema)
+            this.putString("nomeFantasia", model.nomeFantasia)
+            this.putString("uidLojista", model.uid)
+            intent.putExtras(this)
+        }
+        val opts = ActivityOptionsCompat.makeCustomAnimation(v.context, R.anim.slide_in_left, R.anim.slide_out_left)
+        ActivityCompat.startActivity(v.context, intent, opts.toBundle())
     }
 
     class LojistaHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -88,6 +107,6 @@ class LojistaAdapter(options: FirestoreRecyclerOptions<Lojista>) : FirestoreRecy
         val lojistaGradient = itemView.findViewById<View>(R.id.ItemLojista_lojistaGradient)!!
         val backgroundImgPerfilLojista = itemView.findViewById<View>(R.id.ItemLojista_backgroundImgLojista)!!
         val txtEstaAberto = itemView.findViewById<TextView>(R.id.ItemLojista_txtEstaAberto)!!
-        //val cardLojista = itemView.findViewById<MaterialCardView>(R.id.ItemLojista_cardLojista)!!
+        val cardLojista = itemView.findViewById<MaterialCardView>(R.id.ItemLojista_cardLojista)!!
     }
 }

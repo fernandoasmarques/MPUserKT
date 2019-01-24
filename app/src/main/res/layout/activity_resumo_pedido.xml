@@ -19,85 +19,200 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".7" />
+        app:layout_constraintGuide_percent=".8" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/ResumoPedidoActivity_guideline2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".8" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/ResumoPedidoActivity_guideline3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
         app:layout_constraintGuide_percent=".9" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/ResumoPedidoActivity_guideline4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".5" />
-
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/ResumoPedidoActivity_cardResumoPedido"
-        android:layout_width="0dp"
-        android:layout_height="328dp"
-        android:layout_below="@id/ResumoPedidoActivity_toolbar"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/background_list_resumopedido"
-        android:focusable="true"
-        card_view:cardBackgroundColor="#FFFFFF"
-        card_view:cardCornerRadius="@dimen/cardview_default_radius"
-        card_view:cardElevation="5dp"
-        card_view:layout_constraintBottom_toTopOf="@+id/ResumoPedidoActivity_guideline1"
-        card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toBottomOf="@+id/ResumoPedidoActivity_toolbar">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/background_list_resumopedido"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/ResumoPedidoActivity_titulo_list_resumo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="30dp"
-                android:paddingEnd="10dp"
-                android:layout_gravity="end"
-                android:background="@drawable/background_titulo_listresumo"
-                android:fontFamily="@font/bebas"
-                android:text="Resumo do Pedido"
-                android:textColor="#FFFFFF"
-                android:textSize="25sp" />
-
-            <ListView
-                android:id="@+id/ResumoPedidoActivity_listView_resumopedido"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-
-    <View
-        android:id="@+id/ResumoPedidoActivity_background_subtotal"
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#ff6600"
+        app:layout_constraintBottom_toTopOf="@+id/ResumoPedidoActivity_guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ResumoPedidoActivity_toolbar">
+
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ResumoPedidoActivity_cardResumoPedido"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="@drawable/background_list_resumopedido"
+            android:focusable="true"
+            card_view:cardBackgroundColor="#FFFFFF"
+            card_view:cardCornerRadius="@dimen/cardview_default_radius"
+            card_view:cardElevation="7dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_list_resumopedido"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/background_txt_resumopedido"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="4"
+                                android:fontFamily="@font/gothamblack"
+                                android:gravity="start"
+                                android:paddingStart="5dp"
+                                android:text="Qtde"
+                                android:textColor="@android:color/white" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/gothamblack"
+                                android:gravity="start"
+                                android:text="Produto"
+                                android:textColor="@android:color/white" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_weight="2.3"
+                            android:fontFamily="@font/gothamblack"
+                            android:gravity="center_horizontal"
+                            android:paddingBottom="5dp"
+                            android:text="Preço" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/ResumoPedidoActivity_titulo_list_resumo_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="#0f2e4d" />
+
+                    <TextView
+                        android:id="@+id/ResumoPedidoActivity_titulo_list_resumo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:background="@drawable/background_titulo_listresumo"
+                        android:fontFamily="@font/bebas"
+                        android:gravity="center"
+                        android:paddingStart="30dp"
+                        android:paddingEnd="15dp"
+                        android:text="Resumo do Pedido"
+                        android:textColor="#FFFFFF"
+                        android:textSize="25sp" />
+
+                </FrameLayout>
+
+                <ListView
+                    android:id="@+id/ResumoPedidoActivity_listView_resumopedido"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/ResumoPedidoActivity_background_gradient_total"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom"
+            android:background="#ff6600" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ResumoPedidoActivity_background_total"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00ff00"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/ResumoPedidoActivity_guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ResumoPedidoActivity_guideline1"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/ResumoPedidoActivity_txt_total"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:fontFamily="@font/gothamblack"
+            android:gravity="bottom|center_horizontal"
+            android:text="Total:"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/ResumoPedidoActivity_txt_total_preco_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/gothamblack"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="15.50R$"
+                android:translationY="50dp"
+                android:textColor="#20000000"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/ResumoPedidoActivity_txt_total_preco"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/gothamblack"
+                android:gravity="center"
+                android:textColor="#3d3d3d"
+                android:text="15.50R$"
+                android:textSize="30sp" />
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/ResumoPedidoActivity_btnFinalizarPedido"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#c79100"
+        android:drawableEnd="@drawable/ic_avancar"
+        android:drawablePadding="10dp"
+        android:foreground="@drawable/selector_bg_button"
+        android:gravity="end|center_vertical"
+        android:paddingEnd="10dp"
+        android:text="Pagamento e Endereço"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ResumoPedidoActivity_guideline3" />
-
+        app:layout_constraintTop_toBottomOf="@id/ResumoPedidoActivity_guideline2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

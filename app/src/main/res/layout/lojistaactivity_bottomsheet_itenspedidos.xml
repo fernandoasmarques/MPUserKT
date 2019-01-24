@@ -26,6 +26,17 @@
             android:background="@color/colorAccent">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:fontFamily="@font/gothamblack"
+                android:paddingTop="3dp"
+                android:paddingEnd="15dp"
+                android:text="Subtotal"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
+
+            <TextView
                 android:id="@+id/LojistaActivity_bottomsheet_txtItemProdutoSubTotal"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -56,6 +67,16 @@
                     android:scaleType="center"
                     android:src="@drawable/ic_carrinho" />
 
+                <TextView
+                    android:id="@+id/LojistaActivity_bottomsheet_badgeQuantidade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/LojistaActivity_bottomsheet_imgcarrinho"
+                    android:background="@drawable/background_badge_qtde_produtos"
+                    android:fontFamily="@font/gothamblack"
+                    android:text="0"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp" />
             </RelativeLayout>
         </FrameLayout>
 
@@ -68,7 +89,7 @@
             android:drawableEnd="@drawable/ic_avancar"
             android:drawablePadding="-5dp"
             android:foreground="@drawable/selector_bg_button"
-            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
             android:text="Avançar"
             android:textColor="#FFFFFF" />
 

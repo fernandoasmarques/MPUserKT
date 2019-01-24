@@ -8,6 +8,17 @@ public final class Tema implements Parcelable{
     private String corPrincipal;
     private String corStatusBar;
     private String corLight;
+    /*
+    * private String corTextoTitulo;
+    * private String corPrimaria;
+    * private String corPrimariaDark;
+    * private String corPrimariaLight;
+    * private String corTextoPrimario;
+    * private String corSecundaria;
+    * private String corSecundariaDark;
+    * private String corSecundariaLight;
+    * private String corTextoSecundario;
+    * */
 
     public Tema(){}
 

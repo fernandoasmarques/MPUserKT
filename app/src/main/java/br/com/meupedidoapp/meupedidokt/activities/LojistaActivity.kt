@@ -46,6 +46,7 @@ class LojistaActivity : AppCompatActivity() {
     companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var bottomsheet_txtSubtotal : TextView
+        lateinit var bottomsheet_badgeQuantidade : TextView
         val itensSelecionados by lazy { ObservableArrayList<ItensPedido>() }
         @SuppressLint("StaticFieldLeak")
         lateinit var itensPedidoListAdapter: ItensPedidoListAdapter
@@ -57,12 +58,21 @@ class LojistaActivity : AppCompatActivity() {
             }
             return soma
         }
+
+        fun somaQuantidadeItensSelecionados(): Int{
+            var soma = 0
+            for(itenspedido in itensSelecionados){
+                soma += itenspedido.quantidade
+            }
+            return soma
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lojista)
         bottomsheet_txtSubtotal = findViewById<TextView>(R.id.LojistaActivity_bottomsheet_txtItemProdutoSubTotal)
+        bottomsheet_badgeQuantidade = findViewById<TextView>(R.id.LojistaActivity_bottomsheet_badgeQuantidade)
 
         val args = intent.extras
         val tema: Tema? by lazy { args?.getParcelable<Tema>("tema") }

@@ -32,7 +32,7 @@
         android:fontFamily="@font/gothamblack"
         android:gravity="center_vertical"
         android:text="Nome"
-        android:textSize="15sp" />
+        android:textSize="18sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"

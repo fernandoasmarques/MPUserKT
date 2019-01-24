@@ -82,6 +82,7 @@ class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, private val tem
 
             LojistaActivity.itensPedidoListAdapter.notifyDataSetChanged()
             atualizarPrecoBottomSheetSubTotal()
+            atualizarQuantidadeProdutosBottomSheet()
         }
 
         holder.btnCounterQtdeProdutoMenos.setOnClickListener {
@@ -91,6 +92,7 @@ class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, private val tem
             LojistaActivity.itensPedidoListAdapter.notifyDataSetChanged()
             LojistaActivity.bottomsheet_txtSubtotal.text = LojistaActivity.somarPrecosItensSelecionados().setScale(2).toString()
             atualizarPrecoBottomSheetSubTotal()
+            atualizarQuantidadeProdutosBottomSheet()
         }
     }
 
@@ -102,6 +104,10 @@ class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, private val tem
             this.append("R$")
             LojistaActivity.bottomsheet_txtSubtotal.text = this
         }
+    }
+
+    private fun atualizarQuantidadeProdutosBottomSheet(){
+        LojistaActivity.bottomsheet_badgeQuantidade.text = LojistaActivity.somaQuantidadeItensSelecionados().toString()
     }
 
     class ProdutoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

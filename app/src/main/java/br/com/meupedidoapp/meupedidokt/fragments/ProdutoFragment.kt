@@ -14,17 +14,17 @@ import br.com.meupedidoapp.meupedidokt.model.Tema
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 
-class ProdutoFragment: Fragment() {
-    private val db: FirebaseFirestore by lazy {FirebaseFirestore.getInstance()}
-    private val uidLojista by lazy {arguments?.getString("uidLojista")}
-    private val idCategoria by lazy {arguments?.getString("idCategoria")}
-    private val tema by lazy {arguments?.getParcelable<Tema>("tema")}
+class ProdutoFragment : Fragment() {
+    private val db: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+    private val uidLojista by lazy { arguments?.getString("uidLojista") }
+    private val idCategoria by lazy { arguments?.getString("idCategoria") }
+    private val tema by lazy { arguments?.getParcelable<Tema>("tema") }
 
     companion object {
         fun newInstance(uidLojista: String, idCategoria: String, tema: Tema): ProdutoFragment {
-            val fragment by lazy {ProdutoFragment()}
-            val args by lazy {Bundle()}
-            with(args){
+            val fragment by lazy { ProdutoFragment() }
+            val args by lazy { Bundle() }
+            with(args) {
                 putString("uidLojista", uidLojista)
                 putString("idCategoria", idCategoria)
                 putParcelable("tema", tema)
@@ -36,7 +36,7 @@ class ProdutoFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-       val rootView = inflater.inflate(R.layout.fragment_produto, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_produto, container, false)
 
         val recyclerViewProdutos = rootView.findViewById<RecyclerView>(R.id.ProdutoFragment_recyclerView_produtos)
         recyclerViewProdutos.setHasFixedSize(true)
@@ -46,11 +46,13 @@ class ProdutoFragment: Fragment() {
                 .document(uidLojista!!)
                 .collection("Cardapio")
                 .document(idCategoria!!)
-                .collection("Produto")
+                .collection("Produto").whereEqualTo("estaAtivo", true)
 
-        val options: FirestoreRecyclerOptions<Produto> by lazy{FirestoreRecyclerOptions.Builder<Produto>()
-                .setQuery(query, Produto::class.java)
-                .build()}
+        val options: FirestoreRecyclerOptions<Produto> by lazy {
+            FirestoreRecyclerOptions.Builder<Produto>()
+                    .setQuery(query, Produto::class.java)
+                    .build()
+        }
 
         ProdutoAdapter(options, tema).apply {
             this.startListening()

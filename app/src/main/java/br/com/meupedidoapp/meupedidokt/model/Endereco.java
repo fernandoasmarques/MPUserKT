@@ -13,6 +13,8 @@ public final class Endereco {
     private String referencia;
     private boolean enderecoAtivo;
 
+    public Endereco(){}
+
     public Endereco(String nomeLocal, String logradouro, boolean possuiNumero, String numero, String setor, String complemento, GeoPoint localizacao, String referencia) {
         this.nomeLocal = nomeLocal;
         this.logradouro = logradouro;
