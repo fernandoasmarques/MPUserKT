@@ -1,11 +1,12 @@
 package br.com.meupedidoapp.meupedidokt.model;
 
+import org.jetbrains.annotations.Contract;
+
 import java.math.BigDecimal;
 
 public final class Pagamento {
     private String modalidadePagamento;
     private String tipoPagamento;
-    private String descricao;
     private BigDecimal trocoParaValorDinheiro;
 
     public Pagamento(){}
@@ -13,12 +14,17 @@ public final class Pagamento {
     public Pagamento(FormaPagamento pagamento) {
         this.modalidadePagamento = pagamento.getModalidadePagamento();
         this.tipoPagamento = pagamento.getTipoPagamento();
-        this.descricao = pagamento.getDescricao();
-        this.trocoParaValorDinheiro = pagamento.getTrocoParaValorDinheiro();
+        this.trocoParaValorDinheiro = pagamento.getTrocoParaValorDinheiroBD();
     }
 
-    public BigDecimal getTrocoParaValorDinheiro() {
-        return trocoParaValorDinheiro;
+    public Pagamento(String modalidadePagamento, String tipoPagamento, BigDecimal trocoParaValorDinheiro) {
+        this.modalidadePagamento = modalidadePagamento;
+        this.tipoPagamento = tipoPagamento;
+        this.trocoParaValorDinheiro = trocoParaValorDinheiro;
+    }
+
+    public double getTrocoParaValorDinheiro() {
+        return trocoParaValorDinheiro.doubleValue();
     }
 
     public void setTrocoParaValorDinheiro(double trocoParaValorDinheiro) {
@@ -31,9 +37,5 @@ public final class Pagamento {
 
     public String getTipoPagamento() {
         return tipoPagamento;
-    }
-
-    public String getDescricao() {
-        return descricao;
     }
 }

@@ -23,7 +23,6 @@ import android.widget.*
 import androidx.core.content.res.ResourcesCompat
 import br.com.meupedidoapp.meupedidokt.R
 import br.com.meupedidoapp.meupedidokt.model.Endereco
-import br.com.meupedidoapp.meupedidokt.model.Pedido
 import br.com.meupedidoapp.meupedidokt.utils.AndroidUtils
 import br.com.meupedidoapp.meupedidokt.utils.PermissionUtils
 import com.google.android.gms.common.ConnectionResult

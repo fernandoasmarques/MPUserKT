@@ -208,7 +208,7 @@
         android:foreground="@drawable/selector_bg_button"
         android:gravity="end|center_vertical"
         android:paddingEnd="10dp"
-        android:text="Pagamento e Endereço"
+        android:text="Endereço e Pagamento"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

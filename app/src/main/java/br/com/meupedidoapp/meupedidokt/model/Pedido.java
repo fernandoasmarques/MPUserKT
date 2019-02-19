@@ -16,9 +16,16 @@ public final class Pedido {
     private int qtdeTotal;
     private boolean finalizado;
 
-    public Pedido(){
+    public Pedido(){}
+
+    public Pedido(String uidCliente, String uidLojista, ArrayList<ItensPedido> itensPedidos){
+        this.uidCliente = uidCliente;
+        this.uidLojista = uidLojista;
+        this.itensPedidos = itensPedidos;
         Calendar c = Calendar.getInstance();
         dataHora = new Timestamp(c.getTime());
+        this.status = new Status(StatusEnum.EM_ESPERA,  StatusEnum.EM_ESPERA.getMensagem());
+        finalizado = false;
     }
 
     public String getUidCliente() {
@@ -69,6 +76,14 @@ public final class Pedido {
         this.dataHora = dataHora;
     }
 
+    public Endereco getEnderecoEntrega() {
+        return enderecoEntrega;
+    }
+
+    public void setEnderecoEntrega(Endereco enderecoEntrega) {
+        this.enderecoEntrega = enderecoEntrega;
+    }
+
     public int getQtdeTotal() {
         return qtdeTotal;
     }
@@ -83,13 +98,5 @@ public final class Pedido {
 
     public void setFinalizado(boolean finalizado) {
         this.finalizado = finalizado;
-    }
-
-    public Endereco getEnderecoEntrega() {
-        return enderecoEntrega;
-    }
-
-    public void setEnderecoEntrega(Endereco enderecoEntrega) {
-        this.enderecoEntrega = enderecoEntrega;
     }
 }

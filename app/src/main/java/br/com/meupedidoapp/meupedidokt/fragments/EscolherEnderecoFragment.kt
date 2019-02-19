@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ViewSwitcher
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.meupedidoapp.meupedidokt.R
 import br.com.meupedidoapp.meupedidokt.adapters.EnderecoAdapter
-import br.com.meupedidoapp.meupedidokt.adapters.LojistaAdapter
 import br.com.meupedidoapp.meupedidokt.model.Endereco
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -37,7 +37,6 @@ class EscolherEnderecoFragment : Fragment() {
         }
         val query: Query by lazy { collectionEndereco.whereEqualTo("enderecoAtivo", true) }
 
-
         EnderecoAdapter(FirestoreRecyclerOptions.Builder<Endereco>()
                 .setQuery(query, Endereco::class.java)
                 .build()).apply {
@@ -45,6 +44,7 @@ class EscolherEnderecoFragment : Fragment() {
             recyclerView.adapter = this
             enderecoAdapter = this
         }
+
 
         return rootView
     }

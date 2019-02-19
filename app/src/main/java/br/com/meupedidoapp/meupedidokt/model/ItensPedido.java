@@ -9,8 +9,7 @@ public final class ItensPedido implements Parcelable {
     private Produto produto;
     private int quantidade;
 
-    public ItensPedido() {
-    }
+    public ItensPedido(){}
 
     protected ItensPedido(Parcel in) {
         produto = in.readParcelable(Produto.class.getClassLoader());
@@ -57,6 +56,6 @@ public final class ItensPedido implements Parcelable {
     }
 
     public BigDecimal getPrecoTotal() {
-        return new BigDecimal(getQuantidade()).multiply(getProduto().getPreco());
+        return new BigDecimal(getQuantidade()).multiply(getProduto().getPrecoBD());
     }
 }

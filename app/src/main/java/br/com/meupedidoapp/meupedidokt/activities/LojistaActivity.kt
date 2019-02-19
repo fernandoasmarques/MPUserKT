@@ -33,9 +33,7 @@ import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_lojista.*
 import kotlinx.android.synthetic.main.lojistaactivity_bottomsheet_itenspedidos.*
 import java.math.BigDecimal
-import java.math.BigInteger
 import java.util.*
-import java.util.function.BiFunction
 
 class LojistaActivity : AppCompatActivity() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()

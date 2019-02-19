@@ -65,7 +65,11 @@ public final class Produto implements Parcelable {
         return tipo;
     }
 
-    public BigDecimal getPreco() {
+    public double getPreco() {
+        return preco.doubleValue();
+    }
+
+    public BigDecimal getPrecoBD() {
         return preco;
     }
 

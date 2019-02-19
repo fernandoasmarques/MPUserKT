@@ -2,11 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:baselineAligned="false"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -33,7 +41,8 @@
             android:text="Texto" />
     </LinearLayout>
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/item_escolher_endereco_backgroundRadioButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="3">
@@ -42,10 +51,13 @@
             android:id="@+id/item_escolher_endereco_radioButtonEntregarAqui"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/gothamblack"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal"
+            android:layout_marginEnd="20dp"
+            android:layout_centerInParent="true"/>
 
-            android:layoutDirection="rtl"/>
-    </FrameLayout>
+        <View
+            android:id="@+id/item_escolher_endereco_gradient"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
 </LinearLayout>

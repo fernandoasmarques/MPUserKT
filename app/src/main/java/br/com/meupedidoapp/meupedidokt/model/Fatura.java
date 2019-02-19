@@ -17,28 +17,28 @@ public final class Fatura {
         this.pagamento = pagamento;
     }
 
-    public BigDecimal getValorSubTotal() {
-        return valorSubTotal;
+    public double getValorSubTotal() {
+        return valorSubTotal.doubleValue();
     }
 
-    public void setValorSubTotal(double valorSubTotal) {
-        this.valorSubTotal = new BigDecimal(String.valueOf(valorSubTotal));
+    public void setValorSubTotal(BigDecimal valorSubTotal) {
+        this.valorSubTotal = valorSubTotal;
     }
 
-    public BigDecimal getValorTotal() {
-        return valorTotal;
+    public double getValorTotal() {
+        return valorTotal.doubleValue();
     }
 
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = new BigDecimal(String.valueOf(valorTotal));
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
-    public BigDecimal getDescontos() {
-        return descontos;
+    public double getDescontos() {
+        return descontos.doubleValue();
     }
 
-    public void setDescontos(double descontos) {
-        this.descontos = new BigDecimal(String.valueOf(descontos));
+    public void setDescontos(BigDecimal descontos) {
+        this.descontos = descontos;
     }
 
     public Pagamento getPagamento() {

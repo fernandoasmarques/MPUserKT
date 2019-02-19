@@ -3,12 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF0000"
+    android:background="#E0E0E0"
     tools:context=".fragments.EscolherPagamentoFragment">
 
-    <TextView
+    <ViewAnimator
+        android:id="@+id/EscolherPagamentoFragment_viewAnimatorPagamento"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:inAnimation="@android:anim/slide_in_left"
+        android:outAnimation="@android:anim/slide_out_right"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/EscolherPagamentoFragment_txtPagamento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/background_txtpagamento"
+            android:fontFamily="@font/gothamblack"
+            android:text="PAGAMENTO"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
 </FrameLayout>

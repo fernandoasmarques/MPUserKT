@@ -24,7 +24,8 @@ import android.text.Spanned
 import android.text.SpannableStringBuilder
 
 
-class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, private val tema: Tema?) : FirestoreRecyclerAdapter<Produto, ProdutoAdapter.ProdutoHolder>(options) {
+class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, val tema: Tema?)
+    : FirestoreRecyclerAdapter<Produto, ProdutoAdapter.ProdutoHolder>(options) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProdutoHolder {
         return ProdutoHolder(LayoutInflater.from(parent.context)
@@ -54,7 +55,7 @@ class ProdutoAdapter(options: FirestoreRecyclerOptions<Produto>, private val tem
         holder.txtProdutoIngredientes.text = ingredientes
 
         val valorProduto = model.preco.toInt()
-        val subpreco = model.preco.remainder(BigDecimal.ONE).movePointRight(2).abs().toInt()
+        val subpreco = model.precoBD.remainder(BigDecimal.ONE).movePointRight(2).abs().toInt()
 
         if (model.tipo != "unidade")
             holder.txtProdutoPreco.text = "A partir de " + valorProduto.toString()

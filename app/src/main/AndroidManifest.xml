@@ -81,7 +81,8 @@
 
         <activity android:name=".activities.FinalizarPedidoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/HomeActivity_theme"></activity>
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/HomeActivity_theme"/>
     </application>
 
 </manifest>
